@@ -1,6 +1,8 @@
 import random
 import csv
 import requests
+from tabulate import tabulate
+
 
 class_list = []
 trash_list = []
@@ -41,13 +43,10 @@ for i in range(2):
     trash_list.pop(trash_roll)
 
 print("Congratulations! Here are your choices: ")
+table = []
+for movie in selected_class:
+    table.append(["Class", movie[1], movie[2]])
+for movie in selected_trash:
+    table.append(["Trash", movie[1], movie[2]])
 
-print(f"{'Class':>10}")
-print("----------------")
-for i in range(2):
-    print(f"#{i+1}: {class_list[i]}")
-
-print(f"\n{'Trash':>10}")
-print("----------------")
-for i in range(2):
-    print(f"#{i+1}: {trash_list[i]}")
+print(tabulate(table, headers=["Category", "Movie Title", "IMDB"]))
