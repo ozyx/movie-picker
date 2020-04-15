@@ -1,8 +1,11 @@
 import random
 import csv
 import requests
+import os
+import sys
 from tabulate import tabulate
 
+random.seed(os.urandom(1024))
 
 class_list = []
 trash_list = []
