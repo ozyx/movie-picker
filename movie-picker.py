@@ -39,7 +39,9 @@ for i in range(2):
     class_roll = random.randint(0, len(class_list) - 1)
     trash_roll = random.randint(0, len(trash_list) - 1)
 
+    random.shuffle(class_list)
     selected_class.append(class_list[class_roll])
+    random.shuffle(trash_list)
     selected_trash.append(trash_list[trash_roll])
 
     class_list.pop(class_roll)
