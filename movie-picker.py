@@ -34,15 +34,23 @@ with requests.Session() as s:
 
 selected_class = []
 selected_trash = []
+participants = []
 
 for i in range(2):
     class_roll = random.randint(0, len(class_list) - 1)
     trash_roll = random.randint(0, len(trash_list) - 1)
 
     random.shuffle(class_list)
+    while class_list[class_roll][0] in participants:
+        random.shuffle(class_list)
     selected_class.append(class_list[class_roll])
+    participants.append(class_list[class_roll][0])
+
     random.shuffle(trash_list)
+    while trash_list[trash_roll][0] in participants:
+        random.shuffle(trash_list)
     selected_trash.append(trash_list[trash_roll])
+    participants.append(trash_list[trash_roll][0])
 
     class_list.pop(class_roll)
     trash_list.pop(trash_roll)
