@@ -2,10 +2,59 @@ import random
 import csv
 import requests
 import os
-import sys
-from tabulate import tabulate
+from datetime import datetime
+from enum import IntEnum
 
 random.seed(os.urandom(1024))
+class Movie(IntEnum):
+    NOMINATOR = 0
+    TITLE = 1
+    IMDB_ID = 2
+
+
+def make_movie_message(selected_class, selected_trash):
+    """
+    This function will take the selected class and trash picks and return a formatted
+    Discord message.
+    """
+    emoji_list = [
+        ':bonehands',
+        ':REX:',
+        ':brobocop:',
+        ':hark:',
+        ':dreamer:',
+        ':wishmaster:',
+        ':sneakyweng:',
+        ':peekaboo:',
+        ':dogg:',
+        ':pooo:',
+        ':leningrad:'
+    ]
+    random.shuffle(emoji_list)
+
+    todays_date = datetime.now().strftime("%m/%d/%Y")
+    message_array = [
+        f'@everyone',
+        f'**__MOVIE NIGHT {todays_date}:__**',
+        f'',
+        f'Please vote on the movies we will be watching tonight!',
+        f'',
+        f'**__CLASS:__**',
+    ]
+
+    for movie in selected_class:
+        message_array.append(f'{emoji_list.pop()}: {movie[Movie.TITLE]} - https://www.imdb.com/title/{movie[Movie.IMDB_ID]}')
+
+    message_array.extend([
+        f'',
+        f'**__TRASH:__**'
+    ])
+
+    for movie in selected_trash:
+        message_array.append(f'{emoji_list.pop()}: {movie[Movie.TITLE]} - https://www.imdb.com/title/{movie[Movie.IMDB_ID]}')
+
+    return '\n'.join(message_array)
+
 
 class_list = []
 trash_list = []
@@ -55,11 +104,4 @@ for i in range(2):
     class_list.pop(class_roll)
     trash_list.pop(trash_roll)
 
-print("Congratulations! Here are your choices: ")
-table = []
-for movie in selected_class:
-    table.append(["Class", movie[1], f"https://www.imdb.com/title/{movie[2]}"])
-for movie in selected_trash:
-    table.append(["Trash", movie[1], f"https://www.imdb.com/title/{movie[2]}"])
-
-print(tabulate(table, headers=["Category", "Movie Title", "IMDB"]))
+print(make_movie_message(selected_class, selected_trash))
