@@ -58,8 +58,8 @@ for i in range(2):
 print("Congratulations! Here are your choices: ")
 table = []
 for movie in selected_class:
-    table.append(["Class", movie[1], movie[2]])
+    table.append(["Class", movie[1], f"https://www.imdb.com/title/{movie[2]}"])
 for movie in selected_trash:
-    table.append(["Trash", movie[1], movie[2]])
+    table.append(["Trash", movie[1], f"https://www.imdb.com/title/{movie[2]}"])
 
 print(tabulate(table, headers=["Category", "Movie Title", "IMDB"]))
